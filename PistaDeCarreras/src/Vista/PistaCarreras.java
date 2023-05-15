@@ -54,6 +54,7 @@ public class PistaCarreras extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         fSButtonMD1 = new LIB.FSButtonMD();
         fSButtonMD2 = new LIB.FSButtonMD();
+        fSButtonMD3 = new LIB.FSButtonMD();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -127,9 +128,10 @@ public class PistaCarreras extends javax.swing.JFrame {
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/llegada300.png"))); // NOI18N
         jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 170, -1, -1));
 
-        fSButtonMD1.setText("Pausar");
-        fSButtonMD1.setColorNormal(new java.awt.Color(255, 0, 0));
-        jPanel2.add(fSButtonMD1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 580, -1, -1));
+        fSButtonMD1.setText("Reiniciar");
+        fSButtonMD1.setColorNormal(new java.awt.Color(0, 153, 204));
+        fSButtonMD1.setColorPressed(new java.awt.Color(0, 153, 204));
+        jPanel2.add(fSButtonMD1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 580, -1, -1));
 
         fSButtonMD2.setText("Iniciar");
         fSButtonMD2.setColorPressed(new java.awt.Color(0, 204, 51));
@@ -138,7 +140,11 @@ public class PistaCarreras extends javax.swing.JFrame {
                 fSButtonMD2ActionPerformed(evt);
             }
         });
-        jPanel2.add(fSButtonMD2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 580, -1, -1));
+        jPanel2.add(fSButtonMD2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 580, -1, -1));
+
+        fSButtonMD3.setText("Pausar");
+        fSButtonMD3.setColorNormal(new java.awt.Color(255, 0, 0));
+        jPanel2.add(fSButtonMD3, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 580, -1, -1));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/wallhaven-6kww78.png"))); // NOI18N
         jLabel3.setText("jLabel3");
@@ -192,6 +198,7 @@ public class PistaCarreras extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private LIB.FSButtonMD fSButtonMD1;
     private LIB.FSButtonMD fSButtonMD2;
+    private LIB.FSButtonMD fSButtonMD3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
