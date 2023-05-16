@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 public class Corredor extends Thread {
 
@@ -106,49 +107,42 @@ public class Corredor extends Thread {
     @Override
     public void run() {
 
-        if (!Thread.currentThread().isInterrupted()) {
-            try {
+        try {
 
-                timepoInicio = System.currentTimeMillis();
+            timepoInicio = System.currentTimeMillis();
 
-                while (true) {
+            while (true) {
+                synchronized (this) {
+                    if (pausado) {
 
-                    synchronized (this) {
-
-                        if (pausado) {
-
-                            wait();
-                        }
-
-                    }
-
-                    int velocidad = (int) (Math.random() * 401) + 100;
-
-                    // Mover el corredor hacia la derecha
-                    int x = etiqueta.getLocation().x + 15; // Ajusta el valor 10 según tus necesidades
-                    int y = etiqueta.getLocation().y; // Mantén la misma posición vertical
-
-                    etiqueta.setLocation(x, y);
-
-                    // Pausa durante un tiempo aleatorio
-                    Thread.sleep(velocidad);
-
-                    if (etiqueta.getLocation().getX() >= 780) {
-                        break;
+                        wait();
                     }
                 }
 
-                timepoLlegada = System.currentTimeMillis();
+                int velocidad = (int) (Math.random() * 401) + 100;
+                // Mover el corredor hacia la derecha
+                int x = etiqueta.getLocation().x + 15; // Ajusta el valor 10 según tus necesidades
+                int y = etiqueta.getLocation().y; // Mantén la misma posición vertical
 
-                timepototal = timepoLlegada - timepoInicio;
+                etiqueta.setLocation(x, y);
 
-                SimpleDateFormat formato = new SimpleDateFormat("mm:ss.SSS");
+                // Pausa durante un tiempo aleatorio
+                Thread.sleep(velocidad);
 
-                System.out.println(String.valueOf(formato.format(new Date(timepototal))));
-
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                if (etiqueta.getLocation().getX() >= 780) {
+                    break;
+                }
             }
+
+            timepoLlegada = System.currentTimeMillis();
+            timepototal = timepoLlegada - timepoInicio;
+
+            SimpleDateFormat formato = new SimpleDateFormat("mm:ss.SSS");
+            
+            System.out.println(String.valueOf(formato.format(new Date(timepototal))));
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
 
     }
