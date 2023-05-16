@@ -13,13 +13,15 @@ public class PistaCarreras extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         setTitle("ASPHALT BIKER 10");
+        btnRea.setVisible(true);
     }
 
     Corredor corredor1 = new Corredor();
     Corredor corredor2 = new Corredor();
     Corredor corredor3 = new Corredor();
     Corredor corredor4 = new Corredor();
-    
+
+    Crono c = new Crono();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -44,9 +46,10 @@ public class PistaCarreras extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel10 = new javax.swing.JLabel();
-        fSButtonMD1 = new LIB.FSButtonMD();
-        fSButtonMD2 = new LIB.FSButtonMD();
-        fSButtonMD3 = new LIB.FSButtonMD();
+        btnReiniciar = new LIB.FSButtonMD();
+        btnInicar = new LIB.FSButtonMD();
+        btnPau = new LIB.FSButtonMD();
+        btnRea = new LIB.FSButtonMD();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -120,33 +123,43 @@ public class PistaCarreras extends javax.swing.JFrame {
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/llegada300.png"))); // NOI18N
         jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 170, -1, -1));
 
-        fSButtonMD1.setText("Reiniciar");
-        fSButtonMD1.setColorNormal(new java.awt.Color(0, 153, 204));
-        fSButtonMD1.setColorPressed(new java.awt.Color(0, 153, 204));
-        fSButtonMD1.addActionListener(new java.awt.event.ActionListener() {
+        btnReiniciar.setText("Reiniciar");
+        btnReiniciar.setColorNormal(new java.awt.Color(0, 153, 204));
+        btnReiniciar.setColorPressed(new java.awt.Color(0, 153, 204));
+        btnReiniciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fSButtonMD1ActionPerformed(evt);
+                btnReiniciarActionPerformed(evt);
             }
         });
-        jPanel2.add(fSButtonMD1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 580, -1, -1));
+        jPanel2.add(btnReiniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 580, -1, -1));
 
-        fSButtonMD2.setText("Iniciar");
-        fSButtonMD2.setColorPressed(new java.awt.Color(0, 204, 51));
-        fSButtonMD2.addActionListener(new java.awt.event.ActionListener() {
+        btnInicar.setText("Iniciar");
+        btnInicar.setColorPressed(new java.awt.Color(0, 204, 51));
+        btnInicar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fSButtonMD2ActionPerformed(evt);
+                btnInicarActionPerformed(evt);
             }
         });
-        jPanel2.add(fSButtonMD2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 580, -1, -1));
+        jPanel2.add(btnInicar, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 580, -1, -1));
 
-        fSButtonMD3.setText("Pausar");
-        fSButtonMD3.setColorNormal(new java.awt.Color(255, 0, 0));
-        fSButtonMD3.addActionListener(new java.awt.event.ActionListener() {
+        btnPau.setText("Pausar");
+        btnPau.setColorNormal(new java.awt.Color(255, 0, 0));
+        btnPau.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fSButtonMD3ActionPerformed(evt);
+                btnPauActionPerformed(evt);
             }
         });
-        jPanel2.add(fSButtonMD3, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 580, -1, -1));
+        jPanel2.add(btnPau, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 580, -1, -1));
+
+        btnRea.setText("Reanudar");
+        btnRea.setColorNormal(new java.awt.Color(153, 153, 255));
+        btnRea.setColorPressed(new java.awt.Color(153, 153, 255));
+        btnRea.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnReaMouseClicked(evt);
+            }
+        });
+        jPanel2.add(btnRea, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 580, -1, -1));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/wallhaven-6kww78.png"))); // NOI18N
         jLabel3.setText("jLabel3");
@@ -157,38 +170,63 @@ public class PistaCarreras extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void fSButtonMD2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fSButtonMD2ActionPerformed
+    private void btnInicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicarActionPerformed
         // TODO add your handling code here:
-        
-        corredor1.setEtiqueta(lblCorredor1);
-        corredor2.setEtiqueta(lblCorredor2);
-        corredor3.setEtiqueta(lblCorredor3);
-        corredor4.setEtiqueta(lblCorredor4);
-        
-        corredor1.start();
-        corredor2.start();
-        corredor3.start();
-        corredor4.start();
-        
-        new Crono().setVisible(true);
-    }//GEN-LAST:event_fSButtonMD2ActionPerformed
 
-    private void fSButtonMD3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fSButtonMD3ActionPerformed
+        if (!(corredor1.isInterrupted() && corredor2.isInterrupted() && corredor2.isInterrupted() && corredor4.isInterrupted())) {
+            corredor1.setEtiqueta(lblCorredor1);
+            corredor2.setEtiqueta(lblCorredor2);
+            corredor3.setEtiqueta(lblCorredor3);
+            corredor4.setEtiqueta(lblCorredor4);
+
+            corredor1.start();
+            corredor2.start();
+            corredor3.start();
+            corredor4.start();
+
+            c.setVisible(true);
+        } else {
+            try {
+                corredor1.join();
+                corredor2.join();
+                corredor3.join();
+                corredor4.join();
+            } catch (InterruptedException ex) {
+                Logger.getLogger(PistaCarreras.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+    }//GEN-LAST:event_btnInicarActionPerformed
+
+    private void btnPauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPauActionPerformed
         // TODO add your handling code here:
         corredor1.pausar();
         corredor2.pausar();
         corredor3.pausar();
         corredor4.pausar();
-        
-    }//GEN-LAST:event_fSButtonMD3ActionPerformed
 
-    private void fSButtonMD1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fSButtonMD1ActionPerformed
+        c.Pau();
+        btnRea.setVisible(true);
+        btnPau.setVisible(false);
+
+    }//GEN-LAST:event_btnPauActionPerformed
+
+    private void btnReiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_btnReiniciarActionPerformed
+
+    private void btnReaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReaMouseClicked
         // TODO add your handling code here:
         corredor1.reanudar();
         corredor2.reanudar();
         corredor3.reanudar();
         corredor4.reanudar();
-    }//GEN-LAST:event_fSButtonMD1ActionPerformed
+
+        c.Rea();
+        btnRea.setVisible(false);
+        btnPau.setVisible(true);
+    }//GEN-LAST:event_btnReaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -226,9 +264,10 @@ public class PistaCarreras extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private LIB.FSButtonMD fSButtonMD1;
-    private LIB.FSButtonMD fSButtonMD2;
-    private LIB.FSButtonMD fSButtonMD3;
+    private LIB.FSButtonMD btnInicar;
+    private LIB.FSButtonMD btnPau;
+    private LIB.FSButtonMD btnRea;
+    private LIB.FSButtonMD btnReiniciar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;

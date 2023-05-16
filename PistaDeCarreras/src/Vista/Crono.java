@@ -19,13 +19,24 @@ public class Crono extends javax.swing.JFrame {
      */
     public Crono() {
         initComponents();
-        setLocation(70, 70);
-        cr.setEtqietatimepo(lblTiempo);
         cr.setEstado(true);
+        cr.setEtqietatimepo(lblTiempo);
         cr.start();
     }
 
     Cronometro cr = new Cronometro();
+    
+    public void Pau(){
+        
+        cr.pausarCronometro();
+        
+    }
+    
+    public void Rea(){
+        
+        cr.reanudarCronometro();
+        
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -90,7 +101,7 @@ public class Crono extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-
+        cr.pausarCronometro();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
