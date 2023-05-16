@@ -20,8 +20,25 @@ public class PistaCarreras extends javax.swing.JFrame {
     Corredor corredor2 = new Corredor();
     Corredor corredor3 = new Corredor();
     Corredor corredor4 = new Corredor();
-
-    Crono c = new Crono();
+    public static Cronometro crono = new Cronometro();
+    
+    
+    
+    public boolean fin(){
+        
+        boolean fin = true;
+        
+        if (lblCorredor1.getLocation().getX() >= 780 && lblCorredor2.getLocation().getX() >= 780 && lblCorredor3.getLocation().getX() >= 780 && lblCorredor4.getLocation().getX() >= 780) {
+            
+            fin = true;
+            
+        } else {
+            
+            fin = false;
+        }
+        
+        return fin;
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -30,8 +47,6 @@ public class PistaCarreras extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        lblTiempo = new javax.swing.JLabel();
         lblCorredor1 = new javax.swing.JLabel();
         lblCorredor2 = new javax.swing.JLabel();
         lblCorredor3 = new javax.swing.JLabel();
@@ -45,6 +60,7 @@ public class PistaCarreras extends javax.swing.JFrame {
         btnInicar = new LIB.FSButtonMD();
         btnPau = new LIB.FSButtonMD();
         btnRea = new LIB.FSButtonMD();
+        txtCrono = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -73,23 +89,6 @@ public class PistaCarreras extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        lblTiempo.setFont(new java.awt.Font("Algerian", 1, 24)); // NOI18N
-        lblTiempo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTiempo.setText("00:00:00");
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblTiempo, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblTiempo, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
-        );
-
-        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 480, 420, 70));
 
         lblCorredor1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/3 50.png"))); // NOI18N
         jPanel2.add(lblCorredor1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 170, -1, -1));
@@ -139,6 +138,11 @@ public class PistaCarreras extends javax.swing.JFrame {
 
         btnPau.setText("Pausar");
         btnPau.setColorNormal(new java.awt.Color(255, 0, 0));
+        btnPau.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnPauMouseClicked(evt);
+            }
+        });
         btnPau.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPauActionPerformed(evt);
@@ -154,13 +158,24 @@ public class PistaCarreras extends javax.swing.JFrame {
                 btnReaMouseClicked(evt);
             }
         });
-        jPanel2.add(btnRea, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 580, -1, -1));
+        btnRea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReaActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnRea, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 630, -1, -1));
+
+        txtCrono.setEditable(false);
+        txtCrono.setFont(new java.awt.Font("Yu Gothic Medium", 1, 36)); // NOI18N
+        txtCrono.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtCrono.setEnabled(false);
+        jPanel2.add(txtCrono, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 470, 260, 40));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/wallhaven-6kww78.png"))); // NOI18N
         jLabel3.setText("jLabel3");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-460, 70, 1610, 600));
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-460, 70, 1610, 650));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 960, 670));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 960, 720));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -177,8 +192,10 @@ public class PistaCarreras extends javax.swing.JFrame {
         corredor2.start();
         corredor3.start();
         corredor4.start();
-
-        c.setVisible(true);
+        
+        crono.setEtqietatimepo(txtCrono);
+        crono.setEstado(true);
+        crono.start();
     }//GEN-LAST:event_btnInicarActionPerformed
 
     private void btnPauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPauActionPerformed
@@ -187,10 +204,10 @@ public class PistaCarreras extends javax.swing.JFrame {
         corredor2.pausar();
         corredor3.pausar();
         corredor4.pausar();
-
-        c.Pau();
-        btnRea.setVisible(true);
-        btnPau.setVisible(false);
+        
+        crono.pausarCronometro();
+        btnPau.setEnabled(false);
+        btnRea.setEnabled(true);
 
     }//GEN-LAST:event_btnPauActionPerformed
 
@@ -201,15 +218,23 @@ public class PistaCarreras extends javax.swing.JFrame {
 
     private void btnReaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReaMouseClicked
         // TODO add your handling code here:
+    }//GEN-LAST:event_btnReaMouseClicked
+
+    private void btnReaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReaActionPerformed
+        // TODO add your handling code here:
         corredor1.reanudar();
         corredor2.reanudar();
         corredor3.reanudar();
         corredor4.reanudar();
 
-        c.Rea();
-        btnRea.setVisible(false);
-        btnPau.setVisible(true);
-    }//GEN-LAST:event_btnReaMouseClicked
+        crono.reanudarCronometro();
+        btnPau.setEnabled(true);
+        btnRea.setEnabled(false);
+    }//GEN-LAST:event_btnReaActionPerformed
+
+    private void btnPauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPauMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPauMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -237,6 +262,7 @@ public class PistaCarreras extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new PistaCarreras().setVisible(true);
             }
@@ -256,12 +282,11 @@ public class PistaCarreras extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JLabel lblCorredor1;
-    private javax.swing.JLabel lblCorredor2;
-    private javax.swing.JLabel lblCorredor3;
-    private javax.swing.JLabel lblCorredor4;
-    private javax.swing.JLabel lblTiempo;
+    public static javax.swing.JLabel lblCorredor1;
+    public static javax.swing.JLabel lblCorredor2;
+    public static javax.swing.JLabel lblCorredor3;
+    public static javax.swing.JLabel lblCorredor4;
+    private javax.swing.JTextField txtCrono;
     // End of variables declaration//GEN-END:variables
 }

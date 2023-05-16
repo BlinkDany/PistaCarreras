@@ -20,7 +20,7 @@ public class Crono extends javax.swing.JFrame {
     public Crono() {
         initComponents();
         cr.setEstado(true);
-        cr.setEtqietatimepo(lblTiempo);
+        cr.setEtqietatimepo(jTextField1);
         cr.start();
     }
 
@@ -47,6 +47,7 @@ public class Crono extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -89,12 +90,15 @@ public class Crono extends javax.swing.JFrame {
         });
         getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 180, 110, 30));
 
+        jTextField1.setText("jTextField1");
+        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 270, -1, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        cr.setEtqietatimepo(lblTiempo);
+        cr.setEtqietatimepo(jTextField1);
         cr.setEstado(true);
         cr.start();
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -159,6 +163,7 @@ public class Crono extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblTiempo;
     // End of variables declaration//GEN-END:variables
 }
