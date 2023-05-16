@@ -95,22 +95,30 @@ public class Cronometro extends Thread {
         this.pausado = pausado;
     }
 
+    public synchronized void pausarCronometro() {
+        setPausado(true);
+    }
+
+    public synchronized void reanudarCronometro() {
+        setPausado(false);
+        notify();
+    }
+    
     @Override
     public void run() {
 
-        while (estado) {
-
-            try {
-
-                synchronized (this) {
-                    if (pausado) {
-
-                        wait();
-
-                    }
+        while (isEstado() == true) {
+        try {
+            synchronized (this) {
+                
+                if (isPausado() == true) {
+                    
+                    wait(); // El hilo espera hasta que se llame a notify()
+                    
                 }
+            }
 
-                sleep(1);
+            sleep(1);
 
                 if (miliseg == 1000) {
                     miliseg = 0;

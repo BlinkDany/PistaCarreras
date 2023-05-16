@@ -13,6 +13,8 @@ public class Corredor extends Thread {
     private long timepoInicio;
     private long timepototal;
     private int posicion;
+    private boolean pausado;
+    
 
     public Corredor() {
     }
@@ -34,6 +36,15 @@ public class Corredor extends Thread {
         this.timepoInicio = timepoInicio;
         this.timepototal = timepototal;
         this.posicion = posicion;
+    }
+
+    public Corredor(JLabel etiqueta, long timepoLlegada, long timepoInicio, long timepototal, int posicion, boolean pausado) {
+        this.etiqueta = etiqueta;
+        this.timepoLlegada = timepoLlegada;
+        this.timepoInicio = timepoInicio;
+        this.timepototal = timepototal;
+        this.posicion = posicion;
+        this.pausado = pausado;
     }
 
 
@@ -77,6 +88,23 @@ public class Corredor extends Thread {
         this.timepototal = timepototal;
     }
 
+    public boolean isPausado() {
+        return pausado;
+    }
+
+    public void setPausado(boolean pausado) {
+        this.pausado = pausado;
+    }
+    
+    public synchronized void pausar() {
+        setPausado(true);
+    }
+
+    public synchronized void reanudar() {
+        setPausado(false);
+        notify();
+    }
+
     @Override
     public void run(){
         
@@ -85,6 +113,16 @@ public class Corredor extends Thread {
             timepoInicio = System.currentTimeMillis();
             
         while (true) {
+            
+            synchronized (this) {
+                
+                if (pausado) {
+                    
+                    wait();
+                }
+                
+            }
+            
             int velocidad = (int) (Math.random() * 401) + 100;
             
             // Mover el corredor hacia la derecha

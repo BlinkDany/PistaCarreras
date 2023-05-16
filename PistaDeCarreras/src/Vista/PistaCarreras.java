@@ -15,19 +15,11 @@ public class PistaCarreras extends javax.swing.JFrame {
         setTitle("ASPHALT BIKER 10");
     }
 
-    public void MoverCorreodres() {
-
-        Corredor corredor1 = new Corredor(lblCorredor4);
-        Corredor corredor2 = new Corredor(lblCorredor3);
-        Corredor corredor3 = new Corredor(lblCorredor2);
-        Corredor corredor4 = new Corredor(lblCorredor1);
-        
-        
-        corredor1.start();
-        corredor2.start();
-        corredor3.start();
-        corredor4.start();
-    }
+    Corredor corredor1 = new Corredor();
+    Corredor corredor2 = new Corredor();
+    Corredor corredor3 = new Corredor();
+    Corredor corredor4 = new Corredor();
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -131,6 +123,11 @@ public class PistaCarreras extends javax.swing.JFrame {
         fSButtonMD1.setText("Reiniciar");
         fSButtonMD1.setColorNormal(new java.awt.Color(0, 153, 204));
         fSButtonMD1.setColorPressed(new java.awt.Color(0, 153, 204));
+        fSButtonMD1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fSButtonMD1ActionPerformed(evt);
+            }
+        });
         jPanel2.add(fSButtonMD1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 580, -1, -1));
 
         fSButtonMD2.setText("Iniciar");
@@ -144,6 +141,11 @@ public class PistaCarreras extends javax.swing.JFrame {
 
         fSButtonMD3.setText("Pausar");
         fSButtonMD3.setColorNormal(new java.awt.Color(255, 0, 0));
+        fSButtonMD3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fSButtonMD3ActionPerformed(evt);
+            }
+        });
         jPanel2.add(fSButtonMD3, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 580, -1, -1));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/wallhaven-6kww78.png"))); // NOI18N
@@ -157,8 +159,36 @@ public class PistaCarreras extends javax.swing.JFrame {
 
     private void fSButtonMD2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fSButtonMD2ActionPerformed
         // TODO add your handling code here:
-        MoverCorreodres();
+        
+        corredor1.setEtiqueta(lblCorredor1);
+        corredor2.setEtiqueta(lblCorredor2);
+        corredor3.setEtiqueta(lblCorredor3);
+        corredor4.setEtiqueta(lblCorredor4);
+        
+        corredor1.start();
+        corredor2.start();
+        corredor3.start();
+        corredor4.start();
+        
+        new Crono().setVisible(true);
     }//GEN-LAST:event_fSButtonMD2ActionPerformed
+
+    private void fSButtonMD3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fSButtonMD3ActionPerformed
+        // TODO add your handling code here:
+        corredor1.pausar();
+        corredor2.pausar();
+        corredor3.pausar();
+        corredor4.pausar();
+        
+    }//GEN-LAST:event_fSButtonMD3ActionPerformed
+
+    private void fSButtonMD1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fSButtonMD1ActionPerformed
+        // TODO add your handling code here:
+        corredor1.reanudar();
+        corredor2.reanudar();
+        corredor3.reanudar();
+        corredor4.reanudar();
+    }//GEN-LAST:event_fSButtonMD1ActionPerformed
 
     /**
      * @param args the command line arguments
