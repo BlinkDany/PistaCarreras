@@ -5,6 +5,7 @@ import java.sql.Time;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.Icon;
 import javax.swing.JLabel;
 
 public class Corredor extends Thread {
@@ -15,6 +16,8 @@ public class Corredor extends Thread {
     private long timepototal;
     private int posicion;
     private boolean pausado;
+    private static int posicionGlobal;
+    private Icon icono;
 
     public Corredor() {
     }
@@ -80,6 +83,14 @@ public class Corredor extends Thread {
         this.pausado = pausado;
     }
 
+    public Icon getIcono() {
+        return icono;
+    }
+
+    public void setIcono(Icon icono) {
+        this.icono = icono;
+    }
+
     public synchronized void pausar() {
         setPausado(true);
     }
@@ -110,7 +121,7 @@ public class Corredor extends Thread {
                 int velocidad = (int) (Math.random() * 401) + 100;
 
                 // Mover el corredor hacia la derecha
-                int x = etiqueta.getLocation().x + 20; // Ajusta el valor 10 según tus necesidades
+                int x = etiqueta.getLocation().x + 30; // Ajusta el valor 10 según tus necesidades
                 int y = etiqueta.getLocation().y; // Mantén la misma posición vertical
 
                 etiqueta.setLocation(x, y);
@@ -130,6 +141,13 @@ public class Corredor extends Thread {
             SimpleDateFormat formato = new SimpleDateFormat("mm:ss.SSS");
             System.out.println(formato.format(new Date(timepototal)));
 
+            synchronized (Corredor.class) {
+                posicion = ++posicionGlobal;
+            }
+
+            PistaCarreras p = new PistaCarreras();
+            p.Pos();
+            
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

@@ -2,10 +2,20 @@ package Vista;
 
 import Clases.Corredor;
 import Clases.Cronometro;
+import java.awt.List;
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 public class PistaCarreras extends javax.swing.JFrame {
 
@@ -21,23 +31,65 @@ public class PistaCarreras extends javax.swing.JFrame {
     Corredor corredor3 = new Corredor();
     Corredor corredor4 = new Corredor();
     public static Cronometro crono = new Cronometro();
-    
-    
-    
-    public boolean fin(){
-        
+
+    public boolean fin() {
+
         boolean fin = true;
-        
+
         if (lblCorredor1.getLocation().getX() >= 780 && lblCorredor2.getLocation().getX() >= 780 && lblCorredor3.getLocation().getX() >= 780 && lblCorredor4.getLocation().getX() >= 780) {
-            
+
             fin = true;
-            
+
         } else {
-            
+
             fin = false;
         }
-        
+
         return fin;
+    }
+
+    public void Pos() {
+
+        ArrayList<Corredor> corredores = new ArrayList<>();
+        corredores.add(corredor1);
+        corredores.add(corredor2);
+        corredores.add(corredor3);
+        corredores.add(corredor4);
+
+        corredores.sort(Comparator.comparingLong(Corredor::getTimepototal));
+
+        for (int i = 0; i < corredores.size(); i++) {
+            corredores.get(i).setPosicion(i + 1);
+        }
+
+        int posicionCorredor1 = corredor1.getPosicion();
+        int posicionCorredor2 = corredor2.getPosicion();
+        int posicionCorredor3 = corredor3.getPosicion();
+        int posicionCorredor4 = corredor4.getPosicion();
+
+        ImageIcon iconoCorredor1 = new ImageIcon("C:\\Users\\blink\\Documents\\GitHub\\PistaCarreras\\PistaDeCarreras\\src\\imgs\\3 50.png");
+        ImageIcon iconoCorredor2 = new ImageIcon("C:\\Users\\blink\\Documents\\GitHub\\PistaCarreras\\PistaDeCarreras\\src\\imgs\\4 50.png");
+        ImageIcon iconoCorredor3 = new ImageIcon("C:\\Users\\blink\\Documents\\GitHub\\PistaCarreras\\PistaDeCarreras\\src\\imgs\\tipo sin fondo_edited.PNG");
+        ImageIcon iconoCorredor4 = new ImageIcon("C:\\Users\\blink\\Documents\\GitHub\\PistaCarreras\\PistaDeCarreras\\src\\imgs\\1 50.png");
+        
+        JLabel cor1 = new JLabel(iconoCorredor1);
+        JLabel cor2 = new JLabel(iconoCorredor2);
+        JLabel cor3 = new JLabel(iconoCorredor3);
+        JLabel cor4 = new JLabel(iconoCorredor4);
+        
+        JPanel panel = new JPanel();
+        panel.add(cor1);
+        panel.add(cor2);
+        panel.add(cor3);
+        panel.add(cor4);
+
+        String mensaje = "Posiciones finales:\n"
+        + "Corredor 1: " + posicionCorredor1 + " " + cor1 + "\n"
+        + "Corredor 2: " + posicionCorredor2 + " " + cor2 + "\n"
+        + "Corredor 3: " + posicionCorredor3 + " " + cor3 + "\n"
+        + "Corredor 4: " + posicionCorredor4 + " " + cor4;
+        
+        JOptionPane.showMessageDialog(null, panel, "Resultados", JOptionPane.INFORMATION_MESSAGE);
     }
 
     @SuppressWarnings("unchecked")
@@ -188,11 +240,16 @@ public class PistaCarreras extends javax.swing.JFrame {
         corredor3.setEtiqueta(lblCorredor3);
         corredor4.setEtiqueta(lblCorredor4);
 
+        corredor1.setIcono(lblCorredor1.getIcon());
+        corredor2.setIcono(lblCorredor2.getIcon());
+        corredor3.setIcono(lblCorredor3.getIcon());
+        corredor4.setIcono(lblCorredor4.getIcon());
+
         corredor1.start();
         corredor2.start();
         corredor3.start();
         corredor4.start();
-        
+
         crono.setEtqietatimepo(txtCrono);
         crono.setEstado(true);
         crono.start();
@@ -204,7 +261,7 @@ public class PistaCarreras extends javax.swing.JFrame {
         corredor2.pausar();
         corredor3.pausar();
         corredor4.pausar();
-        
+
         crono.pausarCronometro();
         btnPau.setEnabled(false);
         btnRea.setEnabled(true);
@@ -213,7 +270,6 @@ public class PistaCarreras extends javax.swing.JFrame {
 
     private void btnReiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarActionPerformed
         // TODO add your handling code here:
-
     }//GEN-LAST:event_btnReiniciarActionPerformed
 
     private void btnReaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReaMouseClicked
